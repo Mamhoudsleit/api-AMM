@@ -224,9 +224,9 @@ fetch(apiUrl, {
   
                 productDiv.innerHTML = `
                     <img src="${imageUrl}" style="height: 250px; width: 100%" />
-                    <h4>${product.Name}</h4>
+                    <h4><a href="product.html?id=${product.ProductID}">${product.Name}</a></h4>
                     <p class="price">$${product.Price}</p>
-                `;
+                `;  
   
                 relatedProductsDiv.appendChild(productDiv);
             });
