@@ -78,59 +78,60 @@ switchMode.addEventListener('change', function () {
 // Function to fetch reviews from API
 
  // Function to fetch reviews from API
-async function fetchReviews() {
-    try {
-      const response = await fetch('your_api_endpoint_url'); // Replace with your actual API endpoint URL
-      if (!response.ok) {
-        const errorDetails = {
-          status: response.status,
-          statusText: response.statusText,
-          headers: response.headers,
-          text: await response.text(),
-        };
-        console.error('Error fetching reviews:', errorDetails);
+// Function to fetch reviews from API
+function fetchReviews() {
+    return fetch('http://localhost/api-AMM/api/Review/ReviewSelect.php') // Replace with your actual API endpoint URL
+      .then(response => {
+        if (!response.ok) {
+          throw new Error(`Error: ${response.status} - ${response.statusText}`);
+        }
+        return response.json();
+      })
+      .then(data => {
+        return data;
+      })
+      .catch(error => {
+        console.error('Error fetching reviews:', error);
         return [];
-      }
-      const data = await response.json();
-      return data;
-    } catch (error) {
-      console.error('Error fetching reviews:', error);
-      return [];
-    }
+      });
   }
   
-  
-  
   // Function to update the table with review data
-  async function updateReviewsTable() {
-    const reviews = await fetchReviews();
-    const tableBody = document.querySelector('.table-data tbody');
+  function updateReviewsTable() {
+    fetchReviews()
+      .then(response => {
+        const reviews = response.reviews; // Access the "reviews" array from the API response
+        const tableBody = document.querySelector('.table-data tbody');
   
-    // Clear existing table rows
-    tableBody.innerHTML = '';
+        // Clear existing table rows
+        tableBody.innerHTML = '';
   
-    // Loop through reviews and add rows to the table
-    reviews.forEach(review => {
-      const newRow = document.createElement('tr');
-      newRow.innerHTML = `
-          <td>
-              <p>${review.Username}</p>
-          </td>
-          <td>${review.ProductName}</td>
-          <td>${review.ReviewText}</td>
-          <td>${review.Rating}</td>
-          <td>
-              <a class="delete-review" data-review-id="${review.ReviewID}">
-                  <span class="pending status">
-                      <i class='bx bxs-trash'></i>Delete
-                  </span>
-              </a>
-          </td>
-      `;
+        // Loop through reviews and add rows to the table
+        reviews.forEach(review => {
+          const newRow = document.createElement('tr');
+          newRow.innerHTML = `
+            <td>
+                <p>${review.Username}</p>
+            </td>
+            <td>${review.ProductName}</td>
+            <td>${review.ReviewText}</td>
+            <td>${review.Rating}</td>
+            <td>
+                <a class="delete-review" data-review-id="${review.ReviewID}">
+                    <span class="pending status">
+                        <i class='bx bxs-trash'></i>Delete
+                    </span>
+                </a>
+            </td>
+          `;
   
-      // Append the new row to the table body
-      tableBody.appendChild(newRow);
-    });
+          // Append the new row to the table body
+          tableBody.appendChild(newRow);
+        });
+      })
+      .catch(error => {
+        console.error('Error updating reviews table:', error);
+      });
   }
   
   // Call the function to update the table when the page loads
