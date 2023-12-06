@@ -41,14 +41,14 @@ document.addEventListener("DOMContentLoaded", function () {
     ProductID: productId
   };
 
-fetch(apiUrl, {
+  fetch(apiUrl, {
     method: 'POST',
     headers: {
         'Content-Type': 'application/json',
         'Accept': 'application/json',
     },
     body: JSON.stringify(requestData),
-})
+  })
     .then(response => {
         if (!response.ok) {
             throw new Error(`HTTP error! Status: ${response.status}`);
@@ -134,60 +134,7 @@ fetch(apiUrl, {
           }
         });
       });
-      // fetch('http://localhost/api-AMM/api/prodect/select.php', {
-      //     method: 'GET',
-      //     headers: {
-      //         'Content-Type': 'application/json',
-      //         'Accept': 'application/json',
-      //     },
-      // })
-      // .then(response => {
-      //     if (!response.ok) {
-      //         throw new Error(`HTTP error! Status: ${response.status}`);
-      //     }
-      //     return response.json();
-      // })
-      // .then(randomProducts => {
-      //     // Update the DOM with random products
-      //     displayRandomProducts(randomProducts);
-      // })
-      // .catch(error => {
-      //     console.error('Error fetching random products:', error);
-      //     // Handle errors as needed
-      // });
-  
-      // Rest of your code...
-  
-      // Function to display random products in the DOM
-      // function displayRandomProducts(products) {
-      //     const relatedProductsDiv = document.querySelector('.related-products');
-  
-      //     // Remove existing content
-      //     relatedProductsDiv.innerHTML = '';
-  
-      //     // Add header
-      //     const headerDiv = document.createElement('div');
-      //     headerDiv.className = 'column-xs-12';
-      //     headerDiv.innerHTML = '<h3>You may also like</h3>';
-      //     relatedProductsDiv.appendChild(headerDiv);
-  
-      //     // Add random products
-      //     products.slice(0, 3).forEach(product => {
-      //         const productDiv = document.createElement('div');
-      //         productDiv.className = 'column-xs-12 column-md-4 d-flex';
-  
-      //         // Assuming the image URL is available in the 'Image' property
-      //         const imageUrl = product.Image;
-  
-      //         productDiv.innerHTML = `
-      //             <img src="${imageUrl}" style="height: 250px; width: 100%" />
-      //             <h4><a href="product.html?id=${product.ProductID}">${product.Name}</a></h4>
-      //             <p class="price">$${product.Price}</p>
-      //         `;
-  
-      //         relatedProductsDiv.appendChild(productDiv);
-      //     });
-      // }
+      
       function shuffleArray(array) {
         for (let i = array.length - 1; i > 0; i--) {
             const j = Math.floor(Math.random() * (i + 1));

@@ -21,7 +21,7 @@ document.addEventListener("DOMContentLoaded", function () {
             </div>
             <div id="button">
                 <button><a href="dist/product.html?id=${product.ProductID}">Add to Cart</a></button>
-            </div>
+            </div>  
         `;
         return shopItem;
     }
